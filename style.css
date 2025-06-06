@@ -836,3 +836,22 @@ h4 {
         align-items: flex-start;
     }
 }
+/* Estilos para as Páginas de Categoria */
+.content-page-category {
+    padding: 80px 0;
+    background-color: var(--background-light); /* Um fundo claro para a página */
+}
+
+.page-category-title {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.page-category-description {
+    font-size: 1.1em;
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
