@@ -1,4 +1,17 @@
-﻿/* Variáveis CSS (opcional, mas boa prática) */
+﻿/* --- NOVO: Classe para esconder elementos visualmente, mas manter para acessibilidade/SEO --- */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    white-space: nowrap; /* Garante que o texto não quebre linha */
+}
+/* Resto do seu CSS existente... */
+/* Variáveis CSS (opcional, mas boa prática) */
 :root {
     --primary-color: #ff8c42; /* Cor principal, como a do botão "Comprar" do primeiro ebook */
     --secondary-color: #4CAF50; /* Verde do segundo ebook */
@@ -854,4 +867,89 @@ h4 {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+}
+/* Estilos para a Página de Blog */
+.blog-main-content {
+    padding: 80px 0;
+    background-color: var(--background-light);
+    text-align: center;
+}
+
+.blog-page-title {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.blog-page-description {
+    font-size: 1.1em;
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blog-post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.blog-post-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-card-image {
+    width: 100%;
+    height: 200px; /* Altura fixa para as imagens dos posts */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.post-card-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-card-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.post-card-meta {
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.post-card-excerpt {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Garante que o conteúdo ocupe o espaço disponível */
+}
+
+.post-card-readmore {
+    align-self: flex-start; /* Alinha o botão "Leia Mais" à esquerda */
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+/* Adaptação da responsividade para o grid do blog */
+@media (max-width: 992px) {
+    .blog-post-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
 }
