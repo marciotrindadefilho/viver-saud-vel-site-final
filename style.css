@@ -1,0 +1,838 @@
+﻿/* Variáveis CSS (opcional, mas boa prática) */
+:root {
+    --primary-color: #ff8c42; /* Cor principal, como a do botão "Comprar" do primeiro ebook */
+    --secondary-color: #4CAF50; /* Verde do segundo ebook */
+    --tertiary-color: #8e44ad; /* Roxo/Indigo (utilizado como "azul petroleo" para a seção "Sobre Nós" anteriormente) */
+    --text-color: #333;
+    --light-text-color: #f8f8f8;
+    --background-light: #f4f7f6;
+    --background-dark: #2c3e50;
+    --card-background: #ffffff;
+    --border-radius: 8px;
+    --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    /* NOVAS CORES PARA OS NÚMEROS DOS VALORES */
+    --value-number-blue: #007bff; /* Azul */
+    --value-number-green: #28a745; /* Verde */
+    --value-number-dark-pink: #d81b60; /* Rosa Escuro */
+    --value-number-orange: #fd7e14; /* Laranja */
+}
+
+/* Reset básico e tipografia */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-light);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Botões */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+
+.btn.primary:hover {
+    background-color: #e07b36;
+}
+
+.btn.secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn.secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+
+.btn.primary-outline {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 10px 20px;
+}
+
+.btn.primary-outline:hover {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+}
+
+.buy-btn {
+    padding: 10px 20px;
+    font-size: 0.9em;
+    background-color: var(--primary-color); /* Default */
+    color: var(--light-text-color);
+}
+
+.buy-btn.green-btn {
+    background-color: var(--secondary-color);
+}
+
+.buy-btn.purple-btn {
+    background-color: var(--tertiary-color);
+}
+
+
+/* Header - Hero Section */
+.hero {
+    background: url('dna.jpg') no-repeat center top / cover;
+    background-attachment: fixed;
+    color: var(--light-text-color);
+    padding-top: 20px;
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Espaça logo e elementos da direita */
+    align-items: center;
+    padding: 15px 20px;
+    background-color: white; /* Tarja branca */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 50px;
+    width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; /* Necessário para dropdown */
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.navbar .logo-img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+/* NOVO: Estilos para os elementos da direita (cadastro, carrinho, menu) */
+.navbar-right-elements {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espaço entre os elementos */
+}
+
+/* NOVO: Campo de cadastro de clientes */
+.customer-signup {
+    display: flex;
+    align-items: center;
+}
+
+.customer-signup input[type="email"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+.customer-signup .signup-btn {
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+/* NOVO: Carrinho de compras */
+.cart-icon {
+    position: relative;
+    font-size: 1.5em;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.cart-icon .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #dc3545; /* Vermelho para o contador */
+    color: white;
+    font-size: 0.7em;
+    padding: 2px 6px;
+    border-radius: 50%;
+    line-height: 1;
+}
+
+
+/* Menu e Submenu Cascata */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    margin-left: 20px; /* Espaço entre o cadastro/carrinho e o menu */
+}
+
+.nav-links a {
+    font-weight: 600;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+    display: block; /* Para permitir padding em itens de menu */
+    padding: 5px 0; /* Espaçamento interno dos links */
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Adicione esta regra para o dropdown aparecer ao clicar com JS */
+.dropdown-menu.show {
+    display: block; /* Garante que o menu seja visível quando a classe 'show' está presente */
+}
+
+/* Dropdown para "Nossos Ebooks" */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none; /* Esconde o submenu por padrão */
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: var(--shadow);
+    z-index: 1; /* Garante que o menu fique acima de outros elementos */
+    border-radius: var(--border-radius);
+    padding: 10px 0;
+    top: 100%; /* Posiciona abaixo do item pai */
+    left: 0;
+    list-style: none; /* Remove marcadores de lista */
+}
+
+.dropdown-menu li a {
+    color: var(--text-color);
+    padding: 8px 15px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+    color: var(--primary-color);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block; /* Mostra o submenu ao passar o mouse */
+}
+
+
+.hero-content {
+    margin-top: 80px;
+}
+
+.hero-content h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons .btn {
+    margin: 0 10px;
+}
+
+.stats {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.stat-item {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 20px 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.stat-item span {
+    font-size: 2.5em;
+    font-weight: 700;
+    display: block;
+}
+
+.stat-item p {
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+
+/* General Section Styling */
+.section {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.section-description {
+    font-size: 1.1em;
+    max-width: 800px;
+    margin: 20px auto 50px;
+}
+
+h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+h4 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+
+/* About Section */
+.about-section {
+    background: linear-gradient(to right, #FFD1DC, #C8E6C9); /* Rosa claro para verde claro */
+    color: var(--text-color);
+}
+
+.about-stats {
+    display: none;
+}
+
+.mission, .founder, .founded, .location {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: left;
+    color: var(--text-color);
+}
+.founder p {
+    margin-top: 10px;
+}
+
+.values {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.values h3 {
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.value-item {
+    background-color: #E0F2F1; /* Verde água claro */
+    color: var(--text-color);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    position: relative;
+    padding-top: 50px;
+    text-align: left;
+}
+
+.value-item h4 {
+    color: var(--text-color);
+}
+
+.value-item .value-number {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: white;
+}
+
+.value-item .value-number.color-blue { background-color: var(--value-number-blue); }
+.value-item .value-number.color-green { background-color: var(--value-number-green); }
+.value-item .value-number.color-dark-pink { background-color: var(--value-number-dark-pink); }
+.value-item .value-number.color-orange { background-color: var(--value-number-orange); }
+
+
+.expertise {
+    max-width: 800px;
+    margin: 40px auto;
+    text-align: center;
+    color: var(--text-color);
+}
+
+/* Removido `about-call-to-action`, `about-cta-text`, `about-logo-final`, `logo-final-img`, `about-logo-description`
+   desta seção, pois foram movidos para o rodapé */
+
+
+/* Ebooks Section */
+.ebooks-section {
+    background-color: #f0f4f7;
+}
+
+.ebook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.ebook-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.ebook-image {
+    height: 180px;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.ebook-info {
+    padding: 20px;
+    position: relative;
+    flex-grow: 1;
+}
+
+.ebook-info .category {
+    background-color: #f0f0f0;
+    color: #555;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.ebook-info .category.fitness { background-color: #ffe0b2; color: #ff8c42; }
+.ebook-info .category.nutrition { background-color: #c8e6c9; color: #4CAF50; }
+.ebook-info .category.wellbeing { background-color: #e1bee7; color: #8e44ad; }
+
+
+.ebook-info .rating {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fdd835;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.ebook-info h3 {
+    font-size: 1.4em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.ebook-info p {
+    font-size: 0.95em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.ebook-info .details {
+    display: flex;
+    gap: 15px;
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.ebook-info .details i {
+    margin-right: 5px;
+}
+
+.price-buy {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.price-buy .price {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.ebook-card:nth-child(2) .price-buy .price { color: var(--secondary-color); }
+.ebook-card:nth-child(3) .price-buy .price { color: var(--tertiary-color); }
+
+
+.text-center {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background-color: var(--background-light);
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: left;
+    position: relative;
+}
+
+.testimonial-card .quote {
+    font-style: italic;
+    font-size: 1.05em;
+    color: #555;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.testimonial-card .quote::before,
+.testimonial-card .quote::after {
+    content: '"';
+    font-size: 3em;
+    color: var(--primary-color);
+    position: absolute;
+    opacity: 0.2;
+}
+
+.testimonial-card .quote::before {
+    top: -15px;
+    left: -15px;
+}
+.testimonial-card .quote::after {
+    content: '”';
+    bottom: -30px;
+    right: -15px;
+}
+
+.testimonial-card .author {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.testimonial-card .location {
+    font-size: 0.9em;
+    color: #777;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(to right top, #7b4397, #dc2430);
+    color: var(--light-text-color);
+    padding: 60px 0;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.cta-section h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.cta-section p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-section .btn {
+    background-color: var(--light-text-color);
+    color: var(--primary-color);
+}
+
+.cta-section .btn:hover {
+    background-color: #eee;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--background-dark);
+    color: var(--light-text-color);
+    padding: 60px 0 20px;
+    font-size: 0.9em;
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.footer-col h3, .footer-col h4 {
+    color: var(--light-text-color);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.footer-col p, .footer-col li {
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-col a {
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+    color: var(--primary-color);
+}
+
+.newsletter-col .newsletter-form {
+    display: flex;
+    margin-top: 15px;
+}
+
+.newsletter-col input[type="email"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    outline: none;
+}
+
+.newsletter-col .ok-btn {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    padding: 10px 15px;
+    font-weight: 400;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-bottom p {
+    margin-bottom: 10px;
+}
+
+.footer-bottom .legal-links a {
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-bottom .legal-links a:hover {
+    color: var(--primary-color);
+}
+
+/* NOVO: Estilos para a logo no rodapé */
+.footer-logo-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinha o logo e o texto à esquerda no rodapé */
+    margin-bottom: 15px;
+}
+
+.footer-logo-img {
+    height: 50px; /* Ajuste o tamanho da logo no rodapé */
+    background-color: black; /* Fundo preto para a logo */
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .nav-links {
+        gap: 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 2.5em;
+    }
+
+    .ebook-grid, .testimonial-grid, .footer-columns, .value-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .value-item {
+        text-align: center;
+        padding-top: 30px;
+    }
+    .value-item .value-number {
+        position: static;
+        margin: 0 auto 15px;
+    }
+    .navbar {
+        width: 90%;
+    }
+    /* Ajuste para elementos da direita em telas menores */
+    .navbar-right-elements {
+        flex-direction: column;
+        align-items: flex-end; /* Alinha à direita quando empilhados */
+        width: 100%; /* Ocupa a largura total */
+    }
+    .customer-signup {
+        width: 100%;
+        justify-content: flex-end; /* Alinha o campo de cadastro à direita */
+    }
+    .nav-links {
+        width: 100%;
+        justify-content: flex-end; /* Alinha os links à direita */
+        margin-left: 0;
+        margin-top: 15px;
+    }
+    .dropdown-menu {
+        right: 0; /* Alinha o submenu à direita */
+        left: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navbar-right-elements {
+        align-items: center; /* Centraliza tudo quando muito pequeno */
+        gap: 10px;
+    }
+    .customer-signup {
+        justify-content: center; /* Centraliza o campo de cadastro */
+    }
+    .nav-links {
+        justify-content: center; /* Centraliza os links do menu */
+    }
+    .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%); /* Centraliza o submenu */
+    }
+
+    .hero-content h2 {
+        font-size: 2em;
+    }
+
+    .hero-buttons .btn {
+        display: block;
+        margin: 15px auto;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-columns {
+        text-align: center;
+    }
+    .newsletter-col .newsletter-form {
+        justify-content: center;
+    }
+    .footer-bottom {
+        flex-direction: column;
+    }
+    .footer-bottom .legal-links {
+        margin-top: 10px;
+    }
+    .footer-logo-area {
+        align-items: center; /* Centraliza logo no rodapé em mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar h1 {
+        font-size: 1.2em;
+    }
+    .hero-content h2 {
+        font-size: 1.8em;
+    }
+    .ebook-info .rating {
+        position: static;
+        margin-bottom: 10px;
+        display: block;
+    }
+    .price-buy {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+}
