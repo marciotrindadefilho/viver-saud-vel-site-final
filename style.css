@@ -953,3 +953,52 @@ h4 {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
+/* --- Modificações na seção de Estilos para a Página de Blog --- */
+
+.blog-post-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    /* text-align: left; REMOVIDO para que o text-align do content funcione */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Modificado */
+.post-card-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    /* NOVO: Centraliza os itens verticalmente dentro do flex container */
+    align-items: center; 
+    /* NOVO: Centraliza o texto horizontalmente */
+    text-align: center; 
+}
+
+.post-card-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.post-card-meta {
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.post-card-excerpt {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+/* Modificado */
+.post-card-readmore {
+    /* REMOVIDO: align-self: flex-start; */ /* Remova esta linha */
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
