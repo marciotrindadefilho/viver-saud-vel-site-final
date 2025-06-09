@@ -1,4 +1,15 @@
-// Exemplo de script.js
+
+// Configuração do Supabase
+// ATENÇÃO: Substitua 'SUA_URL_DO_PROJETO_SUPABASE' e 'SUA_CHAVE_ANON_PUBLICA'
+// pelas informações que você salvou do painel do Supabase.
+const SUPABASE_URL = https://umkqeyfuqxivjvhkxear.supabase.co;
+const SUPABASE_ANON_KEY = m8w6omFXQYrO4t1x;
+
+const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Abaixo deste código, você pode adicionar suas funcionalidades JavaScript existentes.
+
+// ... o restante do seu código script.js (o document.addEventListener('DOMContentLoaded', function() { ... }) ...// Exemplo de script.js
 
 // Este código garante que o JavaScript só será executado depois que toda a página HTML for carregada.
 document.addEventListener('DOMContentLoaded', function() {
