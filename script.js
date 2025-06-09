@@ -32,6 +32,74 @@ document.addEventListener('DOMContentLoaded', function() {
             // A classe 'show' no CSS fará o menu aparecer ou desaparecer.
             dropdownMenu.classList.toggle('show');
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    // --- NOVO: Funcionalidade do Menu Hambúrguer ---
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+
+    if (hamburgerMenu && navbarCollapse) {
+        hamburgerMenu.addEventListener('click', function() {
+            navbarCollapse.classList.toggle('open'); // Alterna a classe 'open' no navbar-collapse
+        });
+
+        // Opcional: Fechar o menu hambúrguer ao clicar em um link
+        const navLinksInsideCollapse = navbarCollapse.querySelectorAll('.nav-links a');
+        navLinksInsideCollapse.forEach(link => {
+            link.addEventListener('click', function() {
+                if (navbarCollapse.classList.contains('open')) {
+                    navbarCollapse.classList.remove('open'); // Fecha o menu
+                }
+            });
+        });
+    }
+
+    // --- ATENÇÃO: Ajuste a lógica do Dropdown para funcionar com mobile/desktop ---
+    // Adapta o código do dropdown para lidar com o menu hambúrguer.
+    // Em mobile, os dropdowns devem se abrir dentro do menu colapsado, não como absolutos.
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const dropdownLink = dropdown.querySelector('a');
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+
+        if (dropdownLink && dropdownMenu) {
+            dropdownLink.addEventListener('click', function(event) {
+                // Previne a navegação imediata do link para dropdowns
+                event.preventDefault();
+                // Previne que o clique se propague e feche o menu hambúrguer
+                event.stopPropagation();
+
+                // Fecha outros dropdowns abertos (apenas os internos)
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.querySelector('.dropdown-menu').classList.remove('show');
+                    }
+                });
+
+                // Alterna a visibilidade do dropdown atual
+                dropdownMenu.classList.toggle('show');
+
+                // Em telas menores, garante que o menu hambúrguer não se feche se um dropdown for clicado
+                if (window.innerWidth <= 992) { // Use a mesma media query do CSS
+                     // Não feche o navbarCollapse.open aqui, o clique no link fará isso
+                }
+            });
+        }
+    });
+
+    // Este listener fecha dropdowns ao clicar fora, incluindo os do menu hambúrguer
+    document.addEventListener('click', function(event) {
+        document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+            menu.classList.remove('show');
+        });
+        // Opcional: Fechar o menu hambúrguer se clicar fora dele e não no hambúrguer
+        if (navbarCollapse && !navbarCollapse.contains(event.target) && !hamburgerMenu.contains(event.target)) {
+             navbarCollapse.classList.remove('open');
+        }
+    });
+
+    // ... (resto do seu código JavaScript: signupBtn, cartIcon, buyButtons) ...
+});
 
         // Adiciona um ouvinte de evento para cliques em qualquer lugar do documento (na página).
         // Isso faz com que o dropdown se feche se o usuário clicar fora dele.

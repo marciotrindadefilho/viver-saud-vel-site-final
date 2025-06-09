@@ -1130,3 +1130,110 @@ h4 {
     color: var(--primary-color);
 }
 /* Restante do seu CSS ... */
+/* --- Ajustes para o Menu Hambúrguer --- */
+
+/* Esconde o botão hambúrguer por padrão em desktop */
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Oculta o navbar-collapse por padrão em mobile */
+.navbar-collapse {
+    display: flex; /* Volta a ser flex para desktop */
+    align-items: center;
+    gap: 20px; /* Espaço entre os grupos de elementos */
+}
+
+/* --- Responsividade para Mobile (aplica-se em telas menores que 992px) --- */
+@media (max-width: 992px) {
+    .navbar {
+        flex-wrap: wrap; /* Permite que os itens quebrem linha */
+        justify-content: space-between; /* Logo à esquerda, hambúrguer à direita */
+        align-items: flex-start; /* Alinha no topo para o hambúrguer */
+        padding-bottom: 15px; /* Ajuste para o espaçamento */
+    }
+
+    /* Mostra o botão hambúrguer em mobile */
+    .hamburger-menu {
+        display: block;
+        order: 2; /* Garante que o hambúrguer fique à direita */
+    }
+
+    .navbar .logo {
+        order: 1; /* Garante que o logo fique à esquerda */
+    }
+
+    /* Esconde os elementos da direita por padrão em mobile */
+    .navbar-collapse {
+        display: none; /* Esconde por padrão em mobile */
+        flex-direction: column; /* Organiza os itens em coluna */
+        width: 100%; /* Ocupa a largura total */
+        padding: 20px 0; /* Espaçamento interno */
+        background-color: white; /* Mesma cor da navbar */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+        border-top: 1px solid #eee; /* Linha divisória */
+        gap: 15px; /* Espaçamento entre os elementos internos */
+        margin-top: 15px; /* Espaço abaixo da logo/hambúrguer */
+        border-radius: var(--border-radius);
+    }
+
+    /* Estilo para quando o menu estiver ABERTO */
+    .navbar-collapse.open {
+        display: flex; /* Mostra o menu quando a classe 'open' é adicionada */
+    }
+
+    /* Ajustes internos do menu colapsado */
+    .customer-signup, .cart-icon, .nav-links, .nav-links.auth-links {
+        width: 90%; /* Ocupa mais largura no menu aberto */
+        max-width: 400px; /* Limita a largura para estética */
+        margin: 0 auto; /* Centraliza */
+        text-align: center; /* Centraliza o texto */
+        flex-direction: column; /* Itens em coluna */
+        gap: 10px; /* Espaçamento entre itens */
+    }
+
+    .customer-signup input[type="email"] {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .customer-signup .signup-btn {
+        width: 100%;
+    }
+
+    .nav-links li {
+        width: 100%;
+        padding: 8px 0;
+    }
+
+    .nav-links li a {
+        padding: 10px; /* Aumenta a área clicável */
+        width: 100%; /* Ocupa a largura total do li */
+    }
+
+    /* Ajustes para Dropdowns dentro do menu hambúrguer */
+    .dropdown-menu {
+        position: static; /* Remove o posicionamento absoluto */
+        box-shadow: none; /* Remove a sombra */
+        border: none; /* Remove a borda */
+        padding: 0;
+        margin-top: 5px;
+        background-color: transparent; /* Fundo transparente */
+    }
+
+    .dropdown-menu li a {
+        padding: 5px 0; /* Ajusta padding dos itens de sub-menu */
+        color: #555; /* Cor um pouco diferente para indicar sub-item */
+        font-size: 0.95em;
+    }
+    .dropdown:hover .dropdown-menu {
+        display: none; /* Desativa hover para o dropdown no mobile */
+    }
+    /* Para o dropdown funcionar no clique em mobile, o JS deve lidar com a alternância da classe 'show' */
+}
