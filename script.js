@@ -1,14 +1,12 @@
-
-// Configuração do Supabase
+// Configuração do Supabase (SUAS CREDENCIAIS!)
 // ATENÇÃO: Substitua 'SUA_URL_DO_PROJETO_SUPABASE' e 'SUA_CHAVE_ANON_PUBLICA'
 // pelas informações que você salvou do painel do Supabase.
-const SUPABASE_URL = https://umkqeyfuqxivjvhkxear.supabase.co;
-const SUPABASE_ANON_KEY = m8w6omFXQYrO4t1x;
-
+const SUPABASE_URL = 'https://umkqeyfuqxivjvhkxear.supabase.co'; // <--- Adicionado aspas simples aqui
+const SUPABASE_ANON_KEY = 'm8w6omFXQYrO4t1x'; // <--- Adicionado aspas simples aqui
 const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-document.addEventListener('DOMContentLoaded', function() {
-
+document.addEventListener('DOMContentLoaded', function() 
+{
     // --- Funcionalidade do Menu Hambúrguer (Abre/Fecha) ---
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const navbarCollapse = document.querySelector('.navbar-collapse');
@@ -18,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
             navbarCollapse.classList.toggle('open');
             // Opcional: Alternar ícone (hambúrguer para X)
             const icon = hamburgerMenu.querySelector('i');
-            if (icon) {
+            if (icon) 
+                {
                 icon.classList.toggle('fa-bars');
                 icon.classList.toggle('fa-times');
             }
