@@ -2,7 +2,7 @@
 // ATENÇÃO: Substitua 'SUA_URL_DO_PROJETO_SUPABASE' e 'SUA_CHAVE_ANON_PUBLICA'
 // pelas informações que você salvou do painel do Supabase.
 const SUPABASE_URL = 'https://umkqeyfuqxivjvhkxear.supabase.co'; // <--- Adicionado aspas simples aqui
-const SUPABASE_ANON_KEY = 'm8w6omFXQYrO4t1x'; // <--- Adicionado aspas simples aqui
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta3FleWZ1cXhpdmp2aGt4ZWFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NjQ3NTAsImV4cCI6MjA2NTA0MDc1MH0.P6_U-9xDr2ahTJKT1RjZjnyCEICWJIlPOkqQnzH_WO4'; // <--- Adicionado aspas simples aqui
 const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', function() 
