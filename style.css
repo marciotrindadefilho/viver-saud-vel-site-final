@@ -1,4 +1,227 @@
-﻿/* --- NOVO: Classe para esconder elementos visualmente, mas manter para acessibilidade/SEO --- */
+﻿/* --- INÍCIO: NOVOS ESTILOS PARA NAVBAR E MENU HAMBÚRGUER --- */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: white; /* Tarja branca */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 50px;
+    width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; /* Necessário para dropdowns e posicionamento interno */
+    flex-wrap: nowrap; /* Impede quebra de linha em desktop */
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    flex-shrink: 0; /* Impede que o logo encolha */
+}
+
+.navbar .logo-img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.navbar h1 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+/* Esconde o botão hambúrguer por padrão em desktop */
+.hamburger-menu {
+    display: none; /* Escondido em desktop */
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001; /* Garante que fique acima de outros elementos */
+}
+
+/* Contêiner dos elementos da direita (cadastro, carrinho, menus) */
+.navbar-collapse {
+    display: flex; /* Visível e em linha (flex) por padrão em desktop */
+    align-items: center;
+    gap: 20px; /* Espaço entre os grupos de elementos */
+    flex-grow: 1; /* Permite que ocupe o espaço restante */
+    justify-content: flex-end; /* Alinha tudo à direita */
+}
+
+/* Estilos para os links de autenticação na navbar */
+.nav-links.auth-links {
+    display: flex; /* Alinha Login e Cadastre-se lado a lado */
+    gap: 15px;
+    flex-shrink: 0; /* Impede que encolha */
+}
+.nav-links.auth-links a {
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+.nav-links.auth-links a:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Menu principal (Nossos Ebooks, Mais, Contato) */
+.nav-links {
+    display: flex; /* Alinha os itens do menu principal lado a lado */
+    gap: 30px;
+    flex-shrink: 0;
+}
+.nav-links a {
+    font-weight: 600;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+    display: block;
+    padding: 5px 0;
+}
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Dropdown Geral (para Nossos Ebooks e Mais) */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none; /* Esconde o submenu por padrão */
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: var(--shadow);
+    z-index: 1;
+    border-radius: var(--border-radius);
+    padding: 10px 0;
+    top: 100%;
+    left: 0; /* Alinha o dropdown com o item pai */
+    list-style: none;
+}
+
+.dropdown-menu li a {
+    color: var(--text-color);
+    padding: 8px 15px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+    color: var(--primary-color);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block; /* Mostra o submenu ao passar o mouse em desktop */
+}
+
+/* --- RESPONSIVIDADE PARA MOBILE (APLICADO EM TELAS MENORES QUE 992px) --- */
+@media (max-width: 992px) {
+    .navbar {
+        flex-wrap: wrap;
+        align-items: center; /* Centraliza verticalmente logo e hambúrguer */
+        padding-bottom: 15px; /* Ajuste para o espaçamento */
+    }
+
+    /* Mostra o botão hambúrguer em mobile */
+    .hamburger-menu {
+        display: block; /* Visível em mobile */
+        order: 2; /* Garante que o hambúrguer fique à direita */
+    }
+
+    .navbar .logo {
+        order: 1; /* Garante que o logo fique à esquerda */
+        flex-grow: 1; /* Permite que o logo ocupe espaço até o hambúrguer */
+        justify-content: flex-start; /* Alinha a logo à esquerda */
+    }
+    .navbar .logo h1 { /* Para garantir que o h1 não empurre o logo em mobile */
+        margin: 0;
+    }
+
+    /* Oculta os elementos da direita por padrão em mobile (o menu colapsado) */
+    .navbar-collapse {
+        display: none; /* Escondido por padrão em mobile */
+        flex-direction: column; /* Itens em coluna */
+        width: 100%; /* Ocupa a largura total */
+        padding: 20px 0;
+        background-color: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        border-top: 1px solid #eee;
+        gap: 15px;
+        margin-top: 15px;
+        border-radius: var(--border-radius);
+        position: absolute; /* Posiciona o menu abaixo da navbar */
+        top: 100%; /* Inicia abaixo da navbar */
+        left: 0;
+        right: 0;
+        z-index: 999; /* Garante que fique acima de outros conteúdos */
+    }
+
+    /* Estilo para quando o menu colapsado estiver ABERTO (ativado por JS) */
+    .navbar-collapse.open {
+        display: flex; /* Mostra o menu quando a classe 'open' é adicionada */
+    }
+
+    /* Ajustes internos dos elementos dentro do menu colapsado */
+    .customer-signup, .cart-icon, .nav-links, .nav-links.auth-links {
+        width: 90%;
+        max-width: 300px; /* Limita a largura para estética no mobile */
+        margin: 0 auto;
+        text-align: center;
+        flex-direction: column; /* Coluna para links e campos */
+        gap: 10px;
+    }
+
+    .customer-signup input[type="email"],
+    .customer-signup .signup-btn {
+        width: 100%;
+    }
+
+    /* Ajustes para links de navegação no menu mobile */
+    .nav-links li {
+        width: 100%;
+        padding: 8px 0;
+    }
+    .nav-links li a {
+        padding: 10px;
+        width: 100%;
+        color: var(--text-color); /* Garante cor visível no fundo branco */
+    }
+
+    /* Dropdowns dentro do menu hambúrguer (mobile) */
+    .dropdown-menu {
+        position: static; /* Remove posicionamento absoluto para fluir no menu */
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        margin-top: 5px;
+        background-color: transparent;
+        width: 100%; /* Ocupa a largura do pai */
+    }
+    .dropdown-menu li a {
+        padding: 5px 0;
+        color: #555; /* Cor um pouco diferente para indicar sub-item */
+        font-size: 0.95em;
+    }
+    /* Desativa o hover para dropdowns em mobile */
+    .dropdown:hover .dropdown-menu {
+        display: none;
+    }
+    /* E a classe 'show' (controlada por JS) será usada */
+}
+
+/* --- FIM: NOVOS ESTILOS PARA NAVBAR E MENU HAMBÚRGUER --- */
+/* --- NOVO: Classe para esconder elementos visualmente, mas manter para acessibilidade/SEO --- */
 .visually-hidden {
     position: absolute;
     width: 1px;

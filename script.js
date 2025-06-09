@@ -1,3 +1,89 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // --- NOVO: Funcionalidade do Menu Hambúrguer (Abre/Fecha) ---
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+
+    if (hamburgerMenu && navbarCollapse) {
+        hamburgerMenu.addEventListener('click', function() {
+            navbarCollapse.classList.toggle('open'); // Alterna a classe 'open'
+            // Opcional: Alternar ícone (hambúrguer para X)
+            // hamburgerMenu.querySelector('i').classList.toggle('fa-bars');
+            // hamburgerMenu.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Fechar o menu hambúrguer ao clicar em um link
+        const navLinksInsideCollapse = navbarCollapse.querySelectorAll('.nav-links a');
+        navLinksInsideCollapse.forEach(link => {
+            link.addEventListener('click', function() {
+                // Adiciona um pequeno atraso para que a navegação ocorra antes do menu fechar bruscamente
+                setTimeout(() => {
+                    if (navbarCollapse.classList.contains('open')) {
+                        navbarCollapse.classList.remove('open');
+                        // Se tiver a lógica de ícone, também reverteria aqui
+                        // hamburgerMenu.querySelector('i').classList.add('fa-bars');
+                        // hamburgerMenu.querySelector('i').classList.remove('fa-times');
+                    }
+                }, 100); // 100ms de atraso
+            });
+        });
+
+        // Fechar o menu hambúrguer se clicar fora dele (apenas em mobile)
+        document.addEventListener('click', function(event) {
+            // Se o menu estiver aberto e o clique não for no hambúrguer nem dentro do menu
+            if (navbarCollapse.classList.contains('open') &&
+                !navbarCollapse.contains(event.target) &&
+                !hamburgerMenu.contains(event.target)) {
+                navbarCollapse.classList.remove('open');
+                // Reverter ícone se aplicável
+            }
+        });
+    }
+
+    // --- ATENÇÃO: Lógica dos Dropdowns (Nossos Ebooks, Mais) ---
+    // Esta lógica deve ser revisada para funcionar bem tanto em desktop (hover)
+    // quanto em mobile (clique, dentro do menu colapsado).
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const dropdownLink = dropdown.querySelector('a');
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+
+        if (dropdownLink && dropdownMenu) {
+            // Lógica de clique para mobile e fallback para desktop
+            dropdownLink.addEventListener('click', function(event) {
+                // Previne a navegação imediata do link para dropdowns
+                event.preventDefault();
+                // Previne que o clique se propague para elementos pai (ex: fechar menu hambúrguer)
+                event.stopPropagation();
+
+                // Fecha outros dropdowns abertos NO MESMO CONTEXTO (desktop ou mobile)
+                const parentUl = dropdown.closest('ul');
+                if (parentUl) {
+                    parentUl.querySelectorAll('.dropdown-menu.show').forEach(otherMenu => {
+                        if (otherMenu !== dropdownMenu) {
+                            otherMenu.classList.remove('show');
+                        }
+                    });
+                }
+
+                // Alterna a visibilidade do dropdown atual
+                dropdownMenu.classList.toggle('show');
+            });
+        }
+    });
+
+    // Fechar dropdowns (não o menu hambúrguer) ao clicar fora
+    document.addEventListener('click', function(event) {
+        document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+            // Garante que não está clicando no próprio link do dropdown
+            if (!menu.closest('.dropdown').contains(event.target)) {
+                menu.classList.remove('show');
+            }
+        });
+    });
+
+    // ... (resto do seu código JavaScript: signupBtn, cartIcon, buyButtons) ...
+});
 
 // Configuração do Supabase
 // ATENÇÃO: Substitua 'SUA_URL_DO_PROJETO_SUPABASE' e 'SUA_CHAVE_ANON_PUBLICA'
