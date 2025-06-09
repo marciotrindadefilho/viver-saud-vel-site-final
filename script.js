@@ -4,23 +4,24 @@
 // pelas informações que você salvou do painel do Supabase.
 const SUPABASE_URL = https://umkqeyfuqxivjvhkxear.supabase.co;
 const SUPABASE_ANON_KEY = m8w6omFXQYrO4t1x;
+
 const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Abaixo deste código, você pode adicionar suas funcionalidades JavaScript existentes.
+document.addEventListener('DOMContentLoaded', function() {
 
-// ... o restante do seu código script.js (o document.addEventListener('DOMContentLoaded', function() { ... }) ...// Exemplo de script.js
-
-// Este código garante que o JavaScript só será executado depois que toda a página HTML for carregada.document.addEventListener('DOMContentLoaded', function() {
-    // --- NOVO: Funcionalidade do Menu Hambúrguer (Abre/Fecha) ---
+    // --- Funcionalidade do Menu Hambúrguer (Abre/Fecha) ---
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const navbarCollapse = document.querySelector('.navbar-collapse');
 
     if (hamburgerMenu && navbarCollapse) {
         hamburgerMenu.addEventListener('click', function() {
-            navbarCollapse.classList.toggle('open'); // Alterna a classe 'open'
+            navbarCollapse.classList.toggle('open');
             // Opcional: Alternar ícone (hambúrguer para X)
-            // hamburgerMenu.querySelector('i').classList.toggle('fa-bars');
-            // hamburgerMenu.querySelector('i').classList.toggle('fa-times');
+            const icon = hamburgerMenu.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            }
         });
 
         // Fechar o menu hambúrguer ao clicar em um link
@@ -31,29 +32,32 @@ const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 setTimeout(() => {
                     if (navbarCollapse.classList.contains('open')) {
                         navbarCollapse.classList.remove('open');
-                        // Se tiver a lógica de ícone, também reverteria aqui
-                        // hamburgerMenu.querySelector('i').classList.add('fa-bars');
-                        // hamburgerMenu.querySelector('i').classList.remove('fa-times');
+                        const icon = hamburgerMenu.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        }
                     }
-                }, 100); // 100ms de atraso
+                }, 100);
             });
         });
 
-        // Fechar o menu hambúrguer se clicar fora dele (apenas em mobile)
+        // Fechar o menu hambúrguer se clicar fora dele
         document.addEventListener('click', function(event) {
-            // Se o menu estiver aberto e o clique não for no hambúrguer nem dentro do menu
             if (navbarCollapse.classList.contains('open') &&
                 !navbarCollapse.contains(event.target) &&
                 !hamburgerMenu.contains(event.target)) {
                 navbarCollapse.classList.remove('open');
-                // Reverter ícone se aplicável
+                const icon = hamburgerMenu.querySelector('i');
+                if (icon) {
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                }
             }
         });
     }
 
-    // --- ATENÇÃO: Lógica dos Dropdowns (Nossos Ebooks, Mais) ---
-    // Esta lógica deve ser revisada para funcionar bem tanto em desktop (hover)
-    // quanto em mobile (clique, dentro do menu colapsado).
+    // --- Lógica dos Dropdowns (Nossos Ebooks, Mais) ---
     const dropdowns = document.querySelectorAll('.dropdown');
 
     dropdowns.forEach(dropdown => {
@@ -61,14 +65,11 @@ const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const dropdownMenu = dropdown.querySelector('.dropdown-menu');
 
         if (dropdownLink && dropdownMenu) {
-            // Lógica de clique para mobile e fallback para desktop
             dropdownLink.addEventListener('click', function(event) {
-                // Previne a navegação imediata do link para dropdowns
-                event.preventDefault();
-                // Previne que o clique se propague para elementos pai (ex: fechar menu hambúrguer)
-                event.stopPropagation();
+                event.preventDefault(); // Previne a navegação para # (ou outros links de dropdowns)
+                event.stopPropagation(); // Impede que o clique se propague e feche outros elementos
 
-                // Fecha outros dropdowns abertos NO MESMO CONTEXTO (desktop ou mobile)
+                // Fecha outros dropdowns abertos no mesmo nível
                 const parentUl = dropdown.closest('ul');
                 if (parentUl) {
                     parentUl.querySelectorAll('.dropdown-menu.show').forEach(otherMenu => {
@@ -78,7 +79,6 @@ const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                     });
                 }
 
-                // Alterna a visibilidade do dropdown atual
                 dropdownMenu.classList.toggle('show');
             });
         }
@@ -87,61 +87,142 @@ const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     // Fechar dropdowns (não o menu hambúrguer) ao clicar fora
     document.addEventListener('click', function(event) {
         document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
-            // Garante que não está clicando no próprio link do dropdown
+            // Garante que não está clicando no próprio link do dropdown ou em seu filho
             if (!menu.closest('.dropdown').contains(event.target)) {
                 menu.classList.remove('show');
             }
         });
     });
 
-    // ... (resto do seu código JavaScript: signupBtn, cartIcon, buyButtons) ...
-});
-    // --- Funcionalidade simples do Campo de Cadastro de Clientes ---
-    // Este código lida com o que acontece quando o botão "Cadastrar" é clicado.
-    const signupBtn = document.querySelector('.signup-btn'); // Seleciona o botão "Cadastrar"
-    const signupEmailInput = document.querySelector('.customer-signup input[type="email"]'); // Seleciona o campo de email
 
-    // Verifica se o botão e o campo de email existem
-    if (signupBtn && signupEmailInput) {
-        // Adiciona um ouvinte de evento para o clique no botão "Cadastrar"
-        signupBtn.addEventListener('click', function() {
-            const email = signupEmailInput.value; // Pega o valor (o email digitado) do campo
+    // --- Funcionalidade simples do Campo de Cadastro de Clientes (Newsletter na Navbar) ---
+    const signupBtnNavbar = document.querySelector('.customer-signup .signup-btn');
+    const signupEmailInputNavbar = document.querySelector('.customer-signup input[type="email"]');
 
-            if (email) { // Se o campo de email não estiver vazio
-                // Mostra uma mensagem de alerta com o email digitado.
-                // IMPORTANTE: Para realmente salvar o email, você precisaria de um backend (código no servidor).
-                alert('Email para cadastro: ' + email + ' - Funcionalidade de backend necessária para salvar o email.');
-                signupEmailInput.value = ''; // Limpa o campo de email após o "cadastro"
+    if (signupBtnNavbar && signupEmailInputNavbar) {
+        signupBtnNavbar.addEventListener('click', async function() { // async para Supabase
+            const email = signupEmailInputNavbar.value;
+            if (email) {
+                // Simulação de cadastro newsletter (frontend)
+                alert('Email para newsletter: ' + email + ' - (Integracao Supabase viria aqui para newsletter)');
+                // Exemplo REAL com Supabase para newsletter (apenas se for para a tabela de newsletter)
+                // const { data, error } = await supabase.from('newsletter_subscribers').insert([{ email: email }]);
+                // if (error) { console.error('Erro ao assinar newsletter:', error.message); alert('Erro ao assinar!'); }
+                // else { alert('Assinatura da newsletter realizada com sucesso!'); signupEmailInputNavbar.value = ''; }
+                signupEmailInputNavbar.value = ''; // Limpa o campo
             } else {
-                alert('Por favor, digite seu email para cadastro.'); // Se o campo estiver vazio
+                alert('Por favor, digite seu email para a newsletter.');
             }
         });
     }
+
     // --- Funcionalidade simples do Carrinho de Compras ---
-    // Este código simula a adição de itens ao carrinho e exibe a contagem.
-    const cartIcon = document.querySelector('.cart-icon'); // Seleciona o ícone do carrinho
-    const cartCount = document.querySelector('.cart-count'); // Seleciona o contador de itens no carrinho
-    let itemCount = 0; // Variável para armazenar a contagem de itens, começa em zero
+    const cartIcon = document.querySelector('.cart-icon');
+    const cartCount = document.querySelector('.cart-count');
+    let itemCount = 0;
 
-    // Seleciona TODOS os botões "Comprar" dos ebooks
     const buyButtons = document.querySelectorAll('.buy-btn');
-
-    // Percorre cada botão "Comprar" encontrado
     buyButtons.forEach(button => {
-        // Adiciona um ouvinte de evento para o clique em cada botão "Comprar"
         button.addEventListener('click', function() {
-            itemCount++; // Aumenta a contagem de itens em 1
-            cartCount.textContent = itemCount; // Atualiza o texto do contador no ícone do carrinho
+            itemCount++;
+            cartCount.textContent = itemCount;
             alert('Item adicionado ao carrinho! Total: ' + itemCount + ' itens.');
         });
     });
 
-    // Adiciona um ouvinte de evento para o clique no ícone do carrinho
     if (cartIcon) {
         cartIcon.addEventListener('click', function() {
-            // Mostra uma mensagem com o número atual de itens no carrinho.
-            // IMPORTANTE: Uma funcionalidade real de carrinho exigiria mais lógica (lista de itens, preços, checkout).
             alert('Você tem ' + itemCount + ' itens no seu carrinho. (Funcionalidade de checkout viria aqui)');
         });
     }
+
+    // --- SUPABASE: Funções de Cadastro e Login (Para login.html e cadastro.html) ---
+
+    // Função para mostrar mensagem de status (sucesso/erro)
+    function showMessage(elementId, message, isSuccess) {
+        const messageElement = document.getElementById(elementId);
+        if (messageElement) {
+            messageElement.textContent = message;
+            messageElement.className = 'message ' + (isSuccess ? 'success' : 'error');
+            messageElement.style.display = 'block';
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 5000); // Esconde a mensagem após 5 segundos
+        }
+    }
+
+    // Lógica para a página de Cadastro (cadastro.html)
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            const signupMessageElement = 'signup-message';
+
+            if (password.length < 6) {
+                showMessage(signupMessageElement, 'A senha deve ter no mínimo 6 caracteres.', false);
+                return;
+            }
+            if (password !== confirmPassword) {
+                showMessage(signupMessageElement, 'As senhas não coincidem.', false);
+                return;
+            }
+
+            // Realiza o cadastro com Supabase
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                showMessage(signupMessageElement, 'Erro ao cadastrar: ' + error.message, false);
+            } else {
+                showMessage(signupMessageElement, 'Cadastro realizado! Verifique seu e-mail para confirmar a conta.', true);
+                // Limpa os campos
+                signupForm.reset();
+            }
+        });
+    }
+
+    // Lógica para a página de Login (login.html)
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const loginMessageElement = 'login-message';
+
+            // Realiza o login com Supabase
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                showMessage(loginMessageElement, 'Erro ao fazer login: ' + error.message, false);
+            } else {
+                showMessage(loginMessageElement, 'Login bem-sucedido! Redirecionando...', true);
+                // Opcional: Redirecionar o usuário para uma página após o login
+                // window.location.href = 'pagina-de-boas-vindas.html';
+                console.log('Usuário logado:', data.user);
+            }
+        });
+    }
+
+    // Opcional: Verificar o estado de autenticação ao carregar a página
+    // async function checkAuth() {
+    //     const { data: { user } } = await supabase.auth.getUser();
+    //     if (user) {
+    //         console.log('Usuário logado:', user);
+    //         // Atualizar UI para mostrar que o usuário está logado
+    //     } else {
+    //         console.log('Nenhum usuário logado.');
+    //     }
+    // }
+    // checkAuth(); // Chamar ao carregar a página
 });

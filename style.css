@@ -1,244 +1,8 @@
-﻿/* --- INÍCIO: NOVOS ESTILOS PARA NAVBAR E MENU HAMBÚRGUER --- */
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: white; /* Tarja branca */
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 50px;
-    width: calc(100% - 40px);
-    margin-left: auto;
-    margin-right: auto;
-    position: relative; /* Necessário para dropdowns e posicionamento interno */
-    flex-wrap: nowrap; /* Impede quebra de linha em desktop */
-}
-
-.navbar .logo {
-    display: flex;
-    align-items: center;
-    color: var(--text-color);
-    flex-shrink: 0; /* Impede que o logo encolha */
-}
-
-.navbar .logo-img {
-    height: 40px;
-    margin-right: 10px;
-}
-
-.navbar h1 {
-    font-size: 1.5em;
-    margin: 0;
-}
-
-/* Esconde o botão hambúrguer por padrão em desktop */
-.hamburger-menu {
-    display: none; /* Escondido em desktop */
-    background: none;
-    border: none;
-    font-size: 1.8em;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 5px;
-    z-index: 1001; /* Garante que fique acima de outros elementos */
-}
-
-/* Contêiner dos elementos da direita (cadastro, carrinho, menus) */
-.navbar-collapse {
-    display: flex; /* Visível e em linha (flex) por padrão em desktop */
-    align-items: center;
-    gap: 20px; /* Espaço entre os grupos de elementos */
-    flex-grow: 1; /* Permite que ocupe o espaço restante */
-    justify-content: flex-end; /* Alinha tudo à direita */
-}
-
-/* Estilos para os links de autenticação na navbar */
-.nav-links.auth-links {
-    display: flex; /* Alinha Login e Cadastre-se lado a lado */
-    gap: 15px;
-    flex-shrink: 0; /* Impede que encolha */
-}
-.nav-links.auth-links a {
-    padding: 5px 10px;
-    border: 1px solid transparent;
-    border-radius: var(--border-radius);
-    transition: all 0.3s ease;
-}
-.nav-links.auth-links a:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-/* Menu principal (Nossos Ebooks, Mais, Contato) */
-.nav-links {
-    display: flex; /* Alinha os itens do menu principal lado a lado */
-    gap: 30px;
-    flex-shrink: 0;
-}
-.nav-links a {
-    font-weight: 600;
-    color: var(--text-color);
-    transition: color 0.3s ease;
-    display: block;
-    padding: 5px 0;
-}
-.nav-links a:hover {
-    color: var(--primary-color);
-}
-
-/* Dropdown Geral (para Nossos Ebooks e Mais) */
-.dropdown {
-    position: relative;
-}
-
-.dropdown-menu {
-    display: none; /* Esconde o submenu por padrão */
-    position: absolute;
-    background-color: white;
-    min-width: 160px;
-    box-shadow: var(--shadow);
-    z-index: 1;
-    border-radius: var(--border-radius);
-    padding: 10px 0;
-    top: 100%;
-    left: 0; /* Alinha o dropdown com o item pai */
-    list-style: none;
-}
-
-.dropdown-menu li a {
-    color: var(--text-color);
-    padding: 8px 15px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    transition: background-color 0.2s ease;
-}
-
-.dropdown-menu li a:hover {
-    background-color: #f1f1f1;
-    color: var(--primary-color);
-}
-
-.dropdown:hover .dropdown-menu {
-    display: block; /* Mostra o submenu ao passar o mouse em desktop */
-}
-
-/* --- RESPONSIVIDADE PARA MOBILE (APLICADO EM TELAS MENORES QUE 992px) --- */
-@media (max-width: 992px) {
-    .navbar {
-        flex-wrap: wrap;
-        align-items: center; /* Centraliza verticalmente logo e hambúrguer */
-        padding-bottom: 15px; /* Ajuste para o espaçamento */
-    }
-
-    /* Mostra o botão hambúrguer em mobile */
-    .hamburger-menu {
-        display: block; /* Visível em mobile */
-        order: 2; /* Garante que o hambúrguer fique à direita */
-    }
-
-    .navbar .logo {
-        order: 1; /* Garante que o logo fique à esquerda */
-        flex-grow: 1; /* Permite que o logo ocupe espaço até o hambúrguer */
-        justify-content: flex-start; /* Alinha a logo à esquerda */
-    }
-    .navbar .logo h1 { /* Para garantir que o h1 não empurre o logo em mobile */
-        margin: 0;
-    }
-
-    /* Oculta os elementos da direita por padrão em mobile (o menu colapsado) */
-    .navbar-collapse {
-        display: none; /* Escondido por padrão em mobile */
-        flex-direction: column; /* Itens em coluna */
-        width: 100%; /* Ocupa a largura total */
-        padding: 20px 0;
-        background-color: white;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        border-top: 1px solid #eee;
-        gap: 15px;
-        margin-top: 15px;
-        border-radius: var(--border-radius);
-        position: absolute; /* Posiciona o menu abaixo da navbar */
-        top: 100%; /* Inicia abaixo da navbar */
-        left: 0;
-        right: 0;
-        z-index: 999; /* Garante que fique acima de outros conteúdos */
-    }
-
-    /* Estilo para quando o menu colapsado estiver ABERTO (ativado por JS) */
-    .navbar-collapse.open {
-        display: flex; /* Mostra o menu quando a classe 'open' é adicionada */
-    }
-
-    /* Ajustes internos dos elementos dentro do menu colapsado */
-    .customer-signup, .cart-icon, .nav-links, .nav-links.auth-links {
-        width: 90%;
-        max-width: 300px; /* Limita a largura para estética no mobile */
-        margin: 0 auto;
-        text-align: center;
-        flex-direction: column; /* Coluna para links e campos */
-        gap: 10px;
-    }
-
-    .customer-signup input[type="email"],
-    .customer-signup .signup-btn {
-        width: 100%;
-    }
-
-    /* Ajustes para links de navegação no menu mobile */
-    .nav-links li {
-        width: 100%;
-        padding: 8px 0;
-    }
-    .nav-links li a {
-        padding: 10px;
-        width: 100%;
-        color: var(--text-color); /* Garante cor visível no fundo branco */
-    }
-
-    /* Dropdowns dentro do menu hambúrguer (mobile) */
-    .dropdown-menu {
-        position: static; /* Remove posicionamento absoluto para fluir no menu */
-        box-shadow: none;
-        border: none;
-        padding: 0;
-        margin-top: 5px;
-        background-color: transparent;
-        width: 100%; /* Ocupa a largura do pai */
-    }
-    .dropdown-menu li a {
-        padding: 5px 0;
-        color: #555; /* Cor um pouco diferente para indicar sub-item */
-        font-size: 0.95em;
-    }
-    /* Desativa o hover para dropdowns em mobile */
-    .dropdown:hover .dropdown-menu {
-        display: none;
-    }
-    /* E a classe 'show' (controlada por JS) será usada */
-}
-
-/* --- FIM: NOVOS ESTILOS PARA NAVBAR E MENU HAMBÚRGUER --- */
-/* --- NOVO: Classe para esconder elementos visualmente, mas manter para acessibilidade/SEO --- */
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-    white-space: nowrap; /* Garante que o texto não quebre linha */
-}
-/* Resto do seu CSS existente... */
-/* Variáveis CSS (opcional, mas boa prática) */
+﻿/* Variáveis CSS */
 :root {
-    --primary-color: #ff8c42; /* Cor principal, como a do botão "Comprar" do primeiro ebook */
-    --secondary-color: #4CAF50; /* Verde do segundo ebook */
-    --tertiary-color: #8e44ad; /* Roxo/Indigo (utilizado como "azul petroleo" para a seção "Sobre Nós" anteriormente) */
+    --primary-color: #ff8c42;
+    --secondary-color: #4CAF50;
+    --tertiary-color: #8e44ad;
     --text-color: #333;
     --light-text-color: #f8f8f8;
     --background-light: #f4f7f6;
@@ -247,11 +11,10 @@
     --border-radius: 8px;
     --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
-    /* NOVAS CORES PARA OS NÚMEROS DOS VALORES */
-    --value-number-blue: #007bff; /* Azul */
-    --value-number-green: #28a745; /* Verde */
-    --value-number-dark-pink: #d81b60; /* Rosa Escuro */
-    --value-number-orange: #fd7e14; /* Laranja */
+    --value-number-blue: #007bff;
+    --value-number-green: #28a745;
+    --value-number-dark-pink: #d81b60;
+    --value-number-orange: #fd7e14;
 }
 
 /* Reset básico e tipografia */
@@ -286,6 +49,19 @@ a {
 
 ul {
     list-style: none;
+}
+
+/* Esconde visualmente para acessibilidade/SEO */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    white-space: nowrap;
 }
 
 /* Botões */
@@ -335,7 +111,7 @@ ul {
 .buy-btn {
     padding: 10px 20px;
     font-size: 0.9em;
-    background-color: var(--primary-color); /* Default */
+    background-color: var(--primary-color);
     color: var(--light-text-color);
 }
 
@@ -347,6 +123,9 @@ ul {
     background-color: var(--tertiary-color);
 }
 
+.buy-btn.blue-btn { /* Nova cor para o ebook de prevenção */
+    background-color: #3F51B5;
+}
 
 /* Header - Hero Section */
 .hero {
@@ -358,25 +137,28 @@ ul {
     text-align: center;
 }
 
+/* Navbar */
 .navbar {
     display: flex;
-    justify-content: space-between; /* Espaça logo e elementos da direita */
+    justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background-color: white; /* Tarja branca */
+    background-color: white;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     margin-bottom: 50px;
     width: calc(100% - 40px);
     margin-left: auto;
     margin-right: auto;
-    position: relative; /* Necessário para dropdown */
+    position: relative;
+    flex-wrap: nowrap;
 }
 
 .navbar .logo {
     display: flex;
     align-items: center;
     color: var(--text-color);
+    flex-shrink: 0;
 }
 
 .navbar .logo-img {
@@ -384,24 +166,32 @@ ul {
     margin-right: 10px;
 }
 
-.navbar h1 {
-    font-size: 1.5em;
-    margin: 0;
+/* Botão Hambúrguer */
+.hamburger-menu {
+    display: none; /* Escondido em desktop */
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
 }
 
-/* NOVO: Estilos para os elementos da direita (cadastro, carrinho, menu) */
-.navbar-right-elements {
-    display: flex;
+/* Contêiner dos elementos da direita (cadastro, carrinho, menus) */
+.navbar-collapse {
+    display: flex; /* Visível e em linha (flex) por padrão em desktop */
     align-items: center;
-    gap: 20px; /* Espaço entre os elementos */
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: flex-end; /* Alinha tudo à direita */
 }
 
-/* NOVO: Campo de cadastro de clientes */
+/* Campo de cadastro de clientes na navbar */
 .customer-signup {
     display: flex;
     align-items: center;
 }
-
 .customer-signup input[type="email"] {
     padding: 8px 12px;
     border: 1px solid #ccc;
@@ -409,7 +199,6 @@ ul {
     margin-right: 10px;
     font-size: 0.9em;
 }
-
 .customer-signup .signup-btn {
     padding: 8px 15px;
     background-color: var(--primary-color);
@@ -419,19 +208,18 @@ ul {
     font-size: 0.9em;
 }
 
-/* NOVO: Carrinho de compras */
+/* Carrinho de compras na navbar */
 .cart-icon {
     position: relative;
     font-size: 1.5em;
     color: var(--text-color);
     cursor: pointer;
 }
-
 .cart-icon .cart-count {
     position: absolute;
     top: -8px;
     right: -8px;
-    background-color: #dc3545; /* Vermelho para o contador */
+    background-color: #dc3545;
     color: white;
     font-size: 0.7em;
     padding: 2px 6px;
@@ -439,50 +227,57 @@ ul {
     line-height: 1;
 }
 
+/* Links de autenticação (Login/Cadastre-se) na navbar */
+.nav-links.auth-links {
+    display: flex;
+    gap: 15px;
+    flex-shrink: 0;
+}
+.nav-links.auth-links a {
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+.nav-links.auth-links a:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
 
-/* Menu e Submenu Cascata */
+/* Menu principal (Nossos Ebooks, Mais, Contato) */
 .nav-links {
     display: flex;
     gap: 30px;
-    margin-left: 20px; /* Espaço entre o cadastro/carrinho e o menu */
+    flex-shrink: 0;
 }
-
 .nav-links a {
     font-weight: 600;
     color: var(--text-color);
     transition: color 0.3s ease;
-    display: block; /* Para permitir padding em itens de menu */
-    padding: 5px 0; /* Espaçamento interno dos links */
+    display: block;
+    padding: 5px 0;
 }
-
 .nav-links a:hover {
     color: var(--primary-color);
 }
 
-/* Adicione esta regra para o dropdown aparecer ao clicar com JS */
-.dropdown-menu.show {
-    display: block; /* Garante que o menu seja visível quando a classe 'show' está presente */
-}
-
-/* Dropdown para "Nossos Ebooks" */
+/* Dropdown Geral (para Nossos Ebooks e Mais) */
 .dropdown {
     position: relative;
 }
-
 .dropdown-menu {
-    display: none; /* Esconde o submenu por padrão */
+    display: none;
     position: absolute;
     background-color: white;
     min-width: 160px;
     box-shadow: var(--shadow);
-    z-index: 1; /* Garante que o menu fique acima de outros elementos */
+    z-index: 1;
     border-radius: var(--border-radius);
     padding: 10px 0;
-    top: 100%; /* Posiciona abaixo do item pai */
+    top: 100%;
     left: 0;
-    list-style: none; /* Remove marcadores de lista */
+    list-style: none;
 }
-
 .dropdown-menu li a {
     color: var(--text-color);
     padding: 8px 15px;
@@ -491,26 +286,22 @@ ul {
     text-align: left;
     transition: background-color 0.2s ease;
 }
-
 .dropdown-menu li a:hover {
     background-color: #f1f1f1;
     color: var(--primary-color);
 }
-
 .dropdown:hover .dropdown-menu {
-    display: block; /* Mostra o submenu ao passar o mouse */
+    display: block; /* Mostra o submenu ao passar o mouse em desktop */
 }
 
-
+/* Hero Content */
 .hero-content {
     margin-top: 80px;
 }
-
 .hero-content h2 {
     font-size: 3em;
     margin-bottom: 20px;
 }
-
 .hero-content p {
     font-size: 1.1em;
     margin-bottom: 30px;
@@ -518,76 +309,60 @@ ul {
     margin-left: auto;
     margin-right: auto;
 }
-
 .hero-buttons .btn {
     margin: 0 10px;
 }
-
 .stats {
     margin-top: 50px;
     display: flex;
     justify-content: center;
     gap: 50px;
 }
-
 .stat-item {
     background-color: rgba(255, 255, 255, 0.15);
     padding: 20px 30px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
 }
-
 .stat-item span {
     font-size: 2.5em;
     font-weight: 700;
     display: block;
 }
-
 .stat-item p {
     font-size: 0.9em;
     margin-top: 5px;
     margin-bottom: 0;
 }
 
-
 /* General Section Styling */
 .section {
     padding: 80px 0;
     text-align: center;
 }
-
 .section-description {
     font-size: 1.1em;
     max-width: 800px;
     margin: 20px auto 50px;
 }
-
 h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
 }
-
 h3 {
     font-size: 1.8em;
     margin-bottom: 15px;
 }
-
 h4 {
     font-size: 1.4em;
     margin-bottom: 10px;
 }
 
-
 /* About Section */
 .about-section {
-    background: linear-gradient(to right, #FFD1DC, #C8E6C9); /* Rosa claro para verde claro */
+    background: linear-gradient(to right, #FFD1DC, #C8E6C9);
     color: var(--text-color);
 }
-
-.about-stats {
-    display: none;
-}
-
 .mission, .founder, .founded, .location {
     max-width: 800px;
     margin: 20px auto;
@@ -597,17 +372,14 @@ h4 {
 .founder p {
     margin-top: 10px;
 }
-
 .values {
     margin-top: 50px;
     text-align: center;
 }
-
 .values h3 {
     margin-bottom: 30px;
     color: var(--text-color);
 }
-
 .value-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -615,9 +387,8 @@ h4 {
     max-width: 1000px;
     margin: 0 auto;
 }
-
 .value-item {
-    background-color: #E0F2F1; /* Verde água claro */
+    background-color: #E0F2F1;
     color: var(--text-color);
     padding: 30px;
     border-radius: var(--border-radius);
@@ -626,11 +397,9 @@ h4 {
     padding-top: 50px;
     text-align: left;
 }
-
 .value-item h4 {
     color: var(--text-color);
 }
-
 .value-item .value-number {
     position: absolute;
     top: 15px;
@@ -645,36 +414,54 @@ h4 {
     font-size: 1.2em;
     color: white;
 }
-
 .value-item .value-number.color-blue { background-color: var(--value-number-blue); }
 .value-item .value-number.color-green { background-color: var(--value-number-green); }
 .value-item .value-number.color-dark-pink { background-color: var(--value-number-dark-pink); }
 .value-item .value-number.color-orange { background-color: var(--value-number-orange); }
-
-
 .expertise {
     max-width: 800px;
     margin: 40px auto;
     text-align: center;
     color: var(--text-color);
 }
-
-/* Removido `about-call-to-action`, `about-cta-text`, `about-logo-final`, `logo-final-img`, `about-logo-description`
-   desta seção, pois foram movidos para o rodapé */
-
+.about-call-to-action {
+    margin-top: 60px;
+    text-align: center;
+    color: var(--text-color);
+}
+.about-cta-text {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* Ebooks Section */
 .ebooks-section {
     background-color: #f0f4f7;
 }
-
+.ebook-category-title {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-align: left;
+    padding-left: 20px;
+}
+.category-divider {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+    margin: 60px auto;
+    max-width: 800px;
+}
 .ebook-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
 }
-
 .ebook-card {
     background-color: var(--card-background);
     border-radius: var(--border-radius);
@@ -684,7 +471,6 @@ h4 {
     display: flex;
     flex-direction: column;
 }
-
 .ebook-image {
     height: 180px;
     background-color: #ddd;
@@ -694,13 +480,11 @@ h4 {
     border-top-left-radius: var(--border-radius);
     border-top-right-radius: var(--border-radius);
 }
-
 .ebook-info {
     padding: 20px;
     position: relative;
     flex-grow: 1;
 }
-
 .ebook-info .category {
     background-color: #f0f0f0;
     color: #555;
@@ -711,11 +495,10 @@ h4 {
     margin-bottom: 10px;
     display: inline-block;
 }
-
 .ebook-info .category.fitness { background-color: #ffe0b2; color: #ff8c42; }
 .ebook-info .category.nutrition { background-color: #c8e6c9; color: #4CAF50; }
 .ebook-info .category.wellbeing { background-color: #e1bee7; color: #8e44ad; }
-
+.ebook-info .category.prevention { background-color: #C5CAE9; color: #3F51B5; } /* Nova categoria de cor */
 
 .ebook-info .rating {
     position: absolute;
@@ -725,19 +508,16 @@ h4 {
     font-weight: 600;
     font-size: 0.9em;
 }
-
 .ebook-info h3 {
     font-size: 1.4em;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
 .ebook-info p {
     font-size: 0.95em;
     color: #666;
     margin-bottom: 15px;
 }
-
 .ebook-info .details {
     display: flex;
     gap: 15px;
@@ -745,44 +525,109 @@ h4 {
     color: #777;
     margin-bottom: 20px;
 }
-
 .ebook-info .details i {
     margin-right: 5px;
 }
-
 .price-buy {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
 }
-
 .price-buy .price {
     font-size: 1.5em;
     font-weight: 700;
     color: var(--primary-color);
 }
-
 .ebook-card:nth-child(2) .price-buy .price { color: var(--secondary-color); }
 .ebook-card:nth-child(3) .price-buy .price { color: var(--tertiary-color); }
-
+.ebook-card:nth-child(4) .price-buy .price { color: #3F51B5; } /* Cor para o novo ebook de prevenção */
 
 .text-center {
     text-align: center;
     margin-top: 40px;
 }
 
+/* Blog Section */
+.blog-main-content {
+    background-color: var(--background-light);
+}
+.blog-page-title {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+.blog-page-description {
+    font-size: 1.1em;
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.blog-post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.blog-post-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    /* text-align: left; REMOVIDO para que o text-align do content funcione */
+    display: flex;
+    flex-direction: column;
+}
+.post-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+.post-card-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    /* NOVO: Centraliza os itens verticalmente dentro do flex container */
+    align-items: center;
+    /* NOVO: Centraliza o texto horizontalmente */
+    text-align: center;
+}
+.post-card-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+.post-card-meta {
+    font-size: 0.85em;
+    color: #777;
+    margin-bottom: 15px;
+}
+.post-card-excerpt {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+.post-card-readmore {
+    /* REMOVIDO: align-self: flex-start; */
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
 /* Testimonials Section */
 .testimonials-section {
     background-color: var(--background-light);
 }
-
 .testimonial-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
-
 .testimonial-card {
     background-color: var(--card-background);
     padding: 30px;
@@ -791,7 +636,6 @@ h4 {
     text-align: left;
     position: relative;
 }
-
 .testimonial-card .quote {
     font-style: italic;
     font-size: 1.05em;
@@ -799,7 +643,6 @@ h4 {
     margin-bottom: 20px;
     position: relative;
 }
-
 .testimonial-card .quote::before,
 .testimonial-card .quote::after {
     content: '"';
@@ -808,7 +651,6 @@ h4 {
     position: absolute;
     opacity: 0.2;
 }
-
 .testimonial-card .quote::before {
     top: -15px;
     left: -15px;
@@ -818,12 +660,10 @@ h4 {
     bottom: -30px;
     right: -15px;
 }
-
 .testimonial-card .author {
     font-weight: 600;
     margin-bottom: 5px;
 }
-
 .testimonial-card .location {
     font-size: 0.9em;
     color: #777;
@@ -837,12 +677,10 @@ h4 {
     text-align: center;
     margin-top: 50px;
 }
-
 .cta-section h2 {
     font-size: 2em;
     margin-bottom: 15px;
 }
-
 .cta-section p {
     font-size: 1.1em;
     margin-bottom: 30px;
@@ -850,12 +688,10 @@ h4 {
     margin-left: auto;
     margin-right: auto;
 }
-
 .cta-section .btn {
     background-color: var(--light-text-color);
     color: var(--primary-color);
 }
-
 .cta-section .btn:hover {
     background-color: #eee;
 }
@@ -867,7 +703,6 @@ h4 {
     padding: 60px 0 20px;
     font-size: 0.9em;
 }
-
 .footer-columns {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -875,31 +710,25 @@ h4 {
     margin-bottom: 40px;
     text-align: left;
 }
-
 .footer-col h3, .footer-col h4 {
     color: var(--light-text-color);
     margin-bottom: 15px;
     font-size: 1.1em;
 }
-
 .footer-col p, .footer-col li {
     margin-bottom: 8px;
     color: rgba(255, 255, 255, 0.7);
 }
-
 .footer-col a {
     transition: color 0.3s ease;
 }
-
 .footer-col a:hover {
     color: var(--primary-color);
 }
-
 .newsletter-col .newsletter-form {
     display: flex;
     margin-top: 15px;
 }
-
 .newsletter-col input[type="email"] {
     flex-grow: 1;
     padding: 10px;
@@ -907,7 +736,6 @@ h4 {
     border-radius: var(--border-radius) 0 0 var(--border-radius);
     outline: none;
 }
-
 .newsletter-col .ok-btn {
     background-color: var(--primary-color);
     color: var(--light-text-color);
@@ -915,7 +743,6 @@ h4 {
     padding: 10px 15px;
     font-weight: 400;
 }
-
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 20px;
@@ -925,320 +752,42 @@ h4 {
     align-items: center;
     flex-wrap: wrap;
 }
-
 .footer-bottom p {
     margin-bottom: 10px;
 }
-
 .footer-bottom .legal-links a {
     margin: 0 10px;
     color: rgba(255, 255, 255, 0.7);
 }
-
 .footer-bottom .legal-links a:hover {
     color: var(--primary-color);
 }
-
-/* NOVO: Estilos para a logo no rodapé */
 .footer-logo-area {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alinha o logo e o texto à esquerda no rodapé */
+    align-items: flex-start;
     margin-bottom: 15px;
 }
-
 .footer-logo-img {
-    height: 50px; /* Ajuste o tamanho da logo no rodapé */
-    background-color: black; /* Fundo preto para a logo */
+    height: 50px;
+    background-color: black;
     padding: 5px 10px;
     border-radius: var(--border-radius);
     margin-bottom: 10px;
 }
 
-/* Responsividade */
-@media (max-width: 992px) {
-    .nav-links {
-        gap: 20px;
-    }
-
-    .hero-content h2 {
-        font-size: 2.5em;
-    }
-
-    .ebook-grid, .testimonial-grid, .footer-columns, .value-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .value-item {
-        text-align: center;
-        padding-top: 30px;
-    }
-    .value-item .value-number {
-        position: static;
-        margin: 0 auto 15px;
-    }
-    .navbar {
-        width: 90%;
-    }
-    /* Ajuste para elementos da direita em telas menores */
-    .navbar-right-elements {
-        flex-direction: column;
-        align-items: flex-end; /* Alinha à direita quando empilhados */
-        width: 100%; /* Ocupa a largura total */
-    }
-    .customer-signup {
-        width: 100%;
-        justify-content: flex-end; /* Alinha o campo de cadastro à direita */
-    }
-    .nav-links {
-        width: 100%;
-        justify-content: flex-end; /* Alinha os links à direita */
-        margin-left: 0;
-        margin-top: 15px;
-    }
-    .dropdown-menu {
-        right: 0; /* Alinha o submenu à direita */
-        left: auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .navbar-right-elements {
-        align-items: center; /* Centraliza tudo quando muito pequeno */
-        gap: 10px;
-    }
-    .customer-signup {
-        justify-content: center; /* Centraliza o campo de cadastro */
-    }
-    .nav-links {
-        justify-content: center; /* Centraliza os links do menu */
-    }
-    .dropdown-menu {
-        left: 50%;
-        transform: translateX(-50%); /* Centraliza o submenu */
-    }
-
-    .hero-content h2 {
-        font-size: 2em;
-    }
-
-    .hero-buttons .btn {
-        display: block;
-        margin: 15px auto;
-    }
-
-    .stats {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .footer-columns {
-        text-align: center;
-    }
-    .newsletter-col .newsletter-form {
-        justify-content: center;
-    }
-    .footer-bottom {
-        flex-direction: column;
-    }
-    .footer-bottom .legal-links {
-        margin-top: 10px;
-    }
-    .footer-logo-area {
-        align-items: center; /* Centraliza logo no rodapé em mobile */
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar h1 {
-        font-size: 1.2em;
-    }
-    .hero-content h2 {
-        font-size: 1.8em;
-    }
-    .ebook-info .rating {
-        position: static;
-        margin-bottom: 10px;
-        display: block;
-    }
-    .price-buy {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
-}
-/* Estilos para as Páginas de Categoria */
-.content-page-category {
-    padding: 80px 0;
-    background-color: var(--background-light); /* Um fundo claro para a página */
-}
-
-.page-category-title {
-    font-size: 2.8em;
-    margin-bottom: 20px;
-    color: var(--primary-color);
-}
-
-.page-category-description {
-    font-size: 1.1em;
-    margin-bottom: 50px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-/* Estilos para a Página de Blog */
-.blog-main-content {
-    padding: 80px 0;
-    background-color: var(--background-light);
-    text-align: center;
-}
-
-.blog-page-title {
-    font-size: 2.8em;
-    margin-bottom: 20px;
-    color: var(--primary-color);
-}
-
-.blog-page-description {
-    font-size: 1.1em;
-    margin-bottom: 50px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.blog-post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.blog-post-card {
-    background-color: var(--card-background);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-}
-
-.post-card-image {
-    width: 100%;
-    height: 200px; /* Altura fixa para as imagens dos posts */
-    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-}
-
-.post-card-content {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.post-card-title {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: var(--text-color);
-}
-
-.post-card-meta {
-    font-size: 0.85em;
-    color: #777;
-    margin-bottom: 15px;
-}
-
-.post-card-excerpt {
-    font-size: 0.95em;
-    color: #555;
-    margin-bottom: 20px;
-    flex-grow: 1; /* Garante que o conteúdo ocupe o espaço disponível */
-}
-
-.post-card-readmore {
-    align-self: flex-start; /* Alinha o botão "Leia Mais" à esquerda */
-    padding: 8px 15px;
-    font-size: 0.9em;
-}
-
-/* Adaptação da responsividade para o grid do blog */
-@media (max-width: 992px) {
-    .blog-post-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-}
-/* --- Modificações na seção de Estilos para a Página de Blog --- */
-
-.blog-post-card {
-    background-color: var(--card-background);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    /* text-align: left; REMOVIDO para que o text-align do content funcione */
-    display: flex;
-    flex-direction: column;
-}
-
-/* Modificado */
-.post-card-content {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    /* NOVO: Centraliza os itens verticalmente dentro do flex container */
-    align-items: center; 
-    /* NOVO: Centraliza o texto horizontalmente */
-    text-align: center; 
-}
-
-.post-card-title {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: var(--text-color);
-}
-
-.post-card-meta {
-    font-size: 0.85em;
-    color: #777;
-    margin-bottom: 15px;
-}
-
-.post-card-excerpt {
-    font-size: 0.95em;
-    color: #555;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-/* Modificado */
-.post-card-readmore {
-    /* REMOVIDO: align-self: flex-start; */ /* Remova esta linha */
-    padding: 8px 15px;
-    font-size: 0.9em;
-}
-/* Estilos para Páginas de Autenticação (Cadastro/Login) */
+/* --- ESTILOS PARA PÁGINAS DE AUTENTICAÇÃO (CADASTRO/LOGIN) --- */
 .hero.small-hero {
-    padding-bottom: 30px; /* Reduz o padding inferior para não ter um hero muito grande */
-    background-image: none; /* Remove a imagem de fundo grande */
-    background-color: var(--primary-color); /* Adiciona uma cor sólida para o hero pequeno */
-    /* Ou, se preferir o degradê, mude para: */
-    /* background: linear-gradient(to right top, #7b4397, #dc2430); */
+    padding-bottom: 30px;
+    background-image: none;
+    background-color: var(--primary-color); /* Uma cor sólida para o hero pequeno */
 }
 
 .auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 50vh; /* Garante que a página tenha altura mínima */
+    min-height: 50vh;
     padding: 40px 20px;
     background-color: var(--background-light);
 }
@@ -1261,7 +810,7 @@ h4 {
 
 .form-group {
     margin-bottom: 20px;
-    text-align: left; /* Alinha labels e inputs à esquerda */
+    text-align: left;
 }
 
 .form-group label {
@@ -1272,20 +821,21 @@ h4 {
 }
 
 .form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="text"] { /* Adicionado text para futuros campos de nome */
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
     font-size: 1em;
-    box-sizing: border-box; /* Garante que padding não aumente a largura */
+    box-sizing: border-box;
 }
 
 .full-width-btn {
     width: 100%;
     padding: 15px;
     font-size: 1.1em;
-    margin-top: 10px; /* Espaço entre o último campo e o botão */
+    margin-top: 10px;
 }
 
 .auth-link {
@@ -1324,108 +874,60 @@ h4 {
     border: 1px solid #f5c6cb;
 }
 
-/* Responsividade para formulários */
-@media (max-width: 600px) {
-    .form-card {
-        padding: 25px;
-    }
-    .form-card h2 {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-    }
-}
-/* Estilos para os links de autenticação na navbar */
-.nav-links.auth-links {
-    display: flex;
-    gap: 15px; /* Espaçamento entre Login e Cadastre-se */
-    margin-right: 20px; /* Espaço entre eles e o menu principal */
-}
-
-.nav-links.auth-links a {
-    padding: 5px 10px;
-    border: 1px solid transparent;
-    border-radius: var(--border-radius);
-    transition: all 0.3s ease;
-}
-
-.nav-links.auth-links a:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-/* Restante do seu CSS ... */
-/* --- Ajustes para o Menu Hambúrguer --- */
-
-/* Esconde o botão hambúrguer por padrão em desktop */
-.hamburger-menu {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.8em;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 5px;
-}
-
-/* Oculta o navbar-collapse por padrão em mobile */
-.navbar-collapse {
-    display: flex; /* Volta a ser flex para desktop */
-    align-items: center;
-    gap: 20px; /* Espaço entre os grupos de elementos */
-}
-
-/* --- Responsividade para Mobile (aplica-se em telas menores que 992px) --- */
+/* --- RESPONSIVIDADE PARA MOBILE (APLICADO EM TELAS MENORES QUE 992px) --- */
 @media (max-width: 992px) {
     .navbar {
-        flex-wrap: wrap; /* Permite que os itens quebrem linha */
-        justify-content: space-between; /* Logo à esquerda, hambúrguer à direita */
-        align-items: flex-start; /* Alinha no topo para o hambúrguer */
-        padding-bottom: 15px; /* Ajuste para o espaçamento */
+        flex-wrap: wrap;
+        align-items: center;
+        padding-bottom: 15px;
     }
 
-    /* Mostra o botão hambúrguer em mobile */
     .hamburger-menu {
         display: block;
-        order: 2; /* Garante que o hambúrguer fique à direita */
+        order: 2;
     }
 
     .navbar .logo {
-        order: 1; /* Garante que o logo fique à esquerda */
+        order: 1;
+        flex-grow: 1;
+        justify-content: flex-start;
+    }
+    .navbar .logo h1 {
+        margin: 0;
     }
 
-    /* Esconde os elementos da direita por padrão em mobile */
     .navbar-collapse {
-        display: none; /* Esconde por padrão em mobile */
-        flex-direction: column; /* Organiza os itens em coluna */
-        width: 100%; /* Ocupa a largura total */
-        padding: 20px 0; /* Espaçamento interno */
-        background-color: white; /* Mesma cor da navbar */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
-        border-top: 1px solid #eee; /* Linha divisória */
-        gap: 15px; /* Espaçamento entre os elementos internos */
-        margin-top: 15px; /* Espaço abaixo da logo/hambúrguer */
+        display: none; /* Escondido por padrão em mobile */
+        flex-direction: column;
+        width: 100%;
+        padding: 20px 0;
+        background-color: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        border-top: 1px solid #eee;
+        gap: 15px;
+        margin-top: 15px;
         border-radius: var(--border-radius);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
     }
 
-    /* Estilo para quando o menu estiver ABERTO */
     .navbar-collapse.open {
         display: flex; /* Mostra o menu quando a classe 'open' é adicionada */
     }
 
-    /* Ajustes internos do menu colapsado */
     .customer-signup, .cart-icon, .nav-links, .nav-links.auth-links {
-        width: 90%; /* Ocupa mais largura no menu aberto */
-        max-width: 400px; /* Limita a largura para estética */
-        margin: 0 auto; /* Centraliza */
-        text-align: center; /* Centraliza o texto */
-        flex-direction: column; /* Itens em coluna */
-        gap: 10px; /* Espaçamento entre itens */
+        width: 90%;
+        max-width: 300px;
+        margin: 0 auto;
+        text-align: center;
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .customer-signup input[type="email"] {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
+    .customer-signup input[type="email"],
     .customer-signup .signup-btn {
         width: 100%;
     }
@@ -1434,29 +936,38 @@ h4 {
         width: 100%;
         padding: 8px 0;
     }
-
     .nav-links li a {
-        padding: 10px; /* Aumenta a área clicável */
-        width: 100%; /* Ocupa a largura total do li */
+        padding: 10px;
+        width: 100%;
+        color: var(--text-color);
     }
 
-    /* Ajustes para Dropdowns dentro do menu hambúrguer */
     .dropdown-menu {
-        position: static; /* Remove o posicionamento absoluto */
-        box-shadow: none; /* Remove a sombra */
-        border: none; /* Remove a borda */
+        position: static;
+        box-shadow: none;
+        border: none;
         padding: 0;
         margin-top: 5px;
-        background-color: transparent; /* Fundo transparente */
+        background-color: transparent;
+        width: 100%;
     }
-
     .dropdown-menu li a {
-        padding: 5px 0; /* Ajusta padding dos itens de sub-menu */
-        color: #555; /* Cor um pouco diferente para indicar sub-item */
+        padding: 5px 0;
+        color: #555;
         font-size: 0.95em;
     }
     .dropdown:hover .dropdown-menu {
-        display: none; /* Desativa hover para o dropdown no mobile */
+        display: none;
     }
-    /* Para o dropdown funcionar no clique em mobile, o JS deve lidar com a alternância da classe 'show' */
+}
+
+/* Responsividade para formulários (aplica-se a auth-container também) */
+@media (max-width: 600px) {
+    .form-card {
+        padding: 25px;
+    }
+    .form-card h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
 }
