@@ -1,16 +1,22 @@
 // Configuração do Supabase (SUAS CREDENCIAIS!)
 // ATENÇÃO: Substitua 'SUA_URL_DO_PROJETO_SUPABASE' e 'SUA_CHAVE_ANON_PUBLICA'
 // pelas informações que você salvou do painel do Supabase.
-const SUPABASE_URL = 'https://umkqeyfuqxivjvhkxear.supabase.co'; // <--- Adicionado aspas simples aqui
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta3FleWZ1cXhpdmp2aGt4ZWFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NjQ3NTAsImV4cCI6MjA2NTA0MDc1MH0.P6_U-9xDr2ahTJKT1RjZjnyCEICWJIlPOkqQnzH_WO4'; // <--- Adicionado aspas simples aqui
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_URL = 'https://umkqeyfuqxivjvhkxear.supabase.co'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta3FleWZ1cXhpdmp2aGt4ZWFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NjQ3NTAsImV4cCI6MjA2NTA0MDc1MH0.P6_U-9xDr2ahTJKT1RjZjnyCEICWJIlPOkqQnzH_WO4'; 
+
+// Inicialização do Supabase: Mantenha esta linha como está.
+// O erro anterior estava na linha 6 do seu print, onde 'supabase' estava no lado direito
+// da atribuição. 'Supabase' (com 'S' maiúsculo) é o objeto global da biblioteca.
+const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    // --- Funcionalidade do Menu Hambúrguer (Abre/Fecha) ---
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const navbarCollapse = document.querySelector('.navbar-collapse');
 
-    if (hamburgerMenu && navbarCollapse) { // Verifica se os elementos existem
+    if (hamburgerMenu && navbarCollapse) {
         hamburgerMenu.addEventListener('click', function() {
             navbarCollapse.classList.toggle('open');
             const icon = hamburgerMenu.querySelector('i');
@@ -19,12 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 icon.classList.toggle('fa-times');
             }
         });
-        
+
         // Fechar o menu hambúrguer ao clicar em um link
         const navLinksInsideCollapse = navbarCollapse.querySelectorAll('.nav-links a');
         navLinksInsideCollapse.forEach(link => {
             link.addEventListener('click', function() {
-                // Adiciona um pequeno atraso para que a navegação ocorra antes do menu fechar bruscamente
                 setTimeout(() => {
                     if (navbarCollapse.classList.contains('open')) {
                         navbarCollapse.classList.remove('open');
@@ -62,10 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (dropdownLink && dropdownMenu) {
             dropdownLink.addEventListener('click', function(event) {
-                event.preventDefault(); // Previne a navegação para # (ou outros links de dropdowns)
-                event.stopPropagation(); // Impede que o clique se propague e feche outros elementos
+                event.preventDefault();
+                event.stopPropagation();
 
-                // Fecha outros dropdowns abertos no mesmo nível
                 const parentUl = dropdown.closest('ul');
                 if (parentUl) {
                     parentUl.querySelectorAll('.dropdown-menu.show').forEach(otherMenu => {
@@ -83,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fechar dropdowns (não o menu hambúrguer) ao clicar fora
     document.addEventListener('click', function(event) {
         document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
-            // Garante que não está clicando no próprio link do dropdown ou em seu filho
             if (!menu.closest('.dropdown').contains(event.target)) {
                 menu.classList.remove('show');
             }
@@ -96,16 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const signupEmailInputNavbar = document.querySelector('.customer-signup input[type="email"]');
 
     if (signupBtnNavbar && signupEmailInputNavbar) {
-        signupBtnNavbar.addEventListener('click', async function() { // async para Supabase
+        signupBtnNavbar.addEventListener('click', async function() {
             const email = signupEmailInputNavbar.value;
             if (email) {
-                // Simulação de cadastro newsletter (frontend)
                 alert('Email para newsletter: ' + email + ' - (Integracao Supabase viria aqui para newsletter)');
-                // Exemplo REAL com Supabase para newsletter (apenas se for para a tabela de newsletter)
-                // const { data, error } = await supabase.from('newsletter_subscribers').insert([{ email: email }]);
-                // if (error) { console.error('Erro ao assinar newsletter:', error.message); alert('Erro ao assinar!'); }
-                // else { alert('Assinatura da newsletter realizada com sucesso!'); signupEmailInputNavbar.value = ''; }
-                signupEmailInputNavbar.value = ''; // Limpa o campo
+                signupEmailInputNavbar.value = '';
             } else {
                 alert('Por favor, digite seu email para a newsletter.');
             }
@@ -134,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- SUPABASE: Funções de Cadastro e Login (Para login.html e cadastro.html) ---
 
-    // Função para mostrar mensagem de status (sucesso/erro)
     function showMessage(elementId, message, isSuccess) {
         const messageElement = document.getElementById(elementId);
         if (messageElement) {
@@ -143,15 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
             messageElement.style.display = 'block';
             setTimeout(() => {
                 messageElement.style.display = 'none';
-            }, 5000); // Esconde a mensagem após 5 segundos
+            }, 5000);
         }
     }
 
-    // Lógica para a página de Cadastro (cadastro.html)
     const signupForm = document.getElementById('signup-form');
     if (signupForm) {
         signupForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Previne o envio padrão do formulário
+            event.preventDefault();
 
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
@@ -167,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Realiza o cadastro com Supabase
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: password,
@@ -177,23 +172,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 showMessage(signupMessageElement, 'Erro ao cadastrar: ' + error.message, false);
             } else {
                 showMessage(signupMessageElement, 'Cadastro realizado! Verifique seu e-mail para confirmar a conta.', true);
-                // Limpa os campos
                 signupForm.reset();
             }
         });
     }
 
-    // Lógica para a página de Login (login.html)
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Previne o envio padrão do formulário
+            event.preventDefault();
 
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
             const loginMessageElement = 'login-message';
 
-            // Realiza o login com Supabase
             const { data, error } = await supabase.auth.signInWithPassword({
                 email: email,
                 password: password,
@@ -203,22 +195,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 showMessage(loginMessageElement, 'Erro ao fazer login: ' + error.message, false);
             } else {
                 showMessage(loginMessageElement, 'Login bem-sucedido! Redirecionando...', true);
-                // Opcional: Redirecionar o usuário para uma página após o login
-                // window.location.href = 'pagina-de-boas-vindas.html';
                 console.log('Usuário logado:', data.user);
             }
         });
     }
-
-    // Opcional: Verificar o estado de autenticação ao carregar a página
-    // async function checkAuth() {
-    //     const { data: { user } } = await supabase.auth.getUser();
-    //     if (user) {
-    //         console.log('Usuário logado:', user);
-    //         // Atualizar UI para mostrar que o usuário está logado
-    //     } else {
-    //         console.log('Nenhum usuário logado.');
-    //     }
-    // }
-    // checkAuth(); // Chamar ao carregar a página
 });
