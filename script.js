@@ -5,24 +5,21 @@ const SUPABASE_URL = 'https://umkqeyfuqxivjvhkxear.supabase.co'; // <--- Adicion
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta3FleWZ1cXhpdmp2aGt4ZWFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NjQ3NTAsImV4cCI6MjA2NTA0MDc1MH0.P6_U-9xDr2ahTJKT1RjZjnyCEICWJIlPOkqQnzH_WO4'; // <--- Adicionado aspas simples aqui
 const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-document.addEventListener('DOMContentLoaded', function() 
-{
-    // --- Funcionalidade do Menu Hambúrguer (Abre/Fecha) ---
+
+document.addEventListener('DOMContentLoaded', function() {
     const hamburgerMenu = document.querySelector('.hamburger-menu');
     const navbarCollapse = document.querySelector('.navbar-collapse');
 
-    if (hamburgerMenu && navbarCollapse) {
+    if (hamburgerMenu && navbarCollapse) { // Verifica se os elementos existem
         hamburgerMenu.addEventListener('click', function() {
             navbarCollapse.classList.toggle('open');
-            // Opcional: Alternar ícone (hambúrguer para X)
             const icon = hamburgerMenu.querySelector('i');
-            if (icon) 
-                {
+            if (icon) {
                 icon.classList.toggle('fa-bars');
                 icon.classList.toggle('fa-times');
             }
         });
-
+        
         // Fechar o menu hambúrguer ao clicar em um link
         const navLinksInsideCollapse = navbarCollapse.querySelectorAll('.nav-links a');
         navLinksInsideCollapse.forEach(link => {
