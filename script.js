@@ -1,18 +1,15 @@
+// script.js
+
 // Configuração do Supabase (SUAS NOVAS CREDENCIAIS!)
 // Cole a NOVA Project URL que você copiou do painel do Supabase.
 const SUPABASE_URL = 'https://dkdkkfjhelucgovvobln.supabase.co'; 
 // Cole a NOVA chave 'anon public' que você copiou do painel do Supabase.
-// Lembre-se, para o navegador, ela precisa ser uma string, não process.env.
+// Lembre-se, para o navegador, ela precisa ser uma string.
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZGtrZmpoZWx1Y2dvdnZvYmxuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NTM0MDQsImV4cCI6MjA2NTIyOTQwNH0.KOF2qE_bGbbAPvH4pNtWGvcy0X1YbVybrPI5bh6cCyA'; 
 
-// Inicialização do Supabase: Mantenha esta linha como está.
-// Ela usa o objeto global 'Supabase' criado pela tag <script> do CDN.
+// Inicialização do Supabase: Mantenha esta linha exatamente como está.
+// Ela usa o objeto global 'Supabase' (com 'S' maiúsculo) criado pela tag <script> do CDN.
 const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// Inicialização do Supabase: Mantenha esta linha como está.
-// O erro anterior estava na linha 6 do seu print, onde 'supabase' estava no lado direito
-// da atribuição. 'Supabase' (com 'S' maiúsculo) é o objeto global da biblioteca.
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 document.addEventListener('DOMContentLoaded', function() {
