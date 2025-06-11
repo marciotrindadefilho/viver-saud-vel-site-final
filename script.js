@@ -1,8 +1,13 @@
-// Configuração do Supabase (SUAS CREDENCIAIS!)
-// ATENÇÃO: Substitua 'SUA_URL_DO_PROJETO_SUPABASE' e 'SUA_CHAVE_ANON_PUBLICA'
-// pelas informações que você salvou do painel do Supabase.
-const SUPABASE_URL = 'https://umkqeyfuqxivjvhkxear.supabase.co'; 
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVta3FleWZ1cXhpdmp2aGt4ZWFyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NjQ3NTAsImV4cCI6MjA2NTA0MDc1MH0.P6_U-9xDr2ahTJKT1RjZjnyCEICWJIlPOkqQnzH_WO4'; 
+// Configuração do Supabase (SUAS NOVAS CREDENCIAIS!)
+// Cole a NOVA Project URL que você copiou do painel do Supabase.
+const SUPABASE_URL = 'https://dkdkkfjhelucgovvobln.supabase.co'; 
+// Cole a NOVA chave 'anon public' que você copiou do painel do Supabase.
+// Lembre-se, para o navegador, ela precisa ser uma string, não process.env.
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrZGtrZmpoZWx1Y2dvdnZvYmxuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NTM0MDQsImV4cCI6MjA2NTIyOTQwNH0.KOF2qE_bGbbAPvH4pNtWGvcy0X1YbVybrPI5bh6cCyA'; 
+
+// Inicialização do Supabase: Mantenha esta linha como está.
+// Ela usa o objeto global 'Supabase' criado pela tag <script> do CDN.
+const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Inicialização do Supabase: Mantenha esta linha como está.
 // O erro anterior estava na linha 6 do seu print, onde 'supabase' estava no lado direito
