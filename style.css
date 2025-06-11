@@ -914,8 +914,22 @@ h4 {
         z-index: 999;
     }
 
-    .navbar-collapse.open {
-        display: flex; /* Mostra o menu quando a classe 'open' é adicionada */
+    .navbar-collapse.open { /* <-- ESTA REGRA ESTÁ AGORA DENTRO DA PRIMEIRA MEDIA QUERY */
+        display: flex;
+        flex-direction: column; /* Para empilhar os itens verticalmente */
+        position: absolute; /* Para que ele se sobreponha ao conteúdo */
+        top: 100%; /* Para que ele apareça abaixo da navbar */
+        left: 0;
+        width: 100%; /* Ocupa toda a largura */
+        background-color: white; /* Fundo branco para o menu aberto */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 998; /* Para que ele apareça acima do conteúdo da página, mas abaixo de elementos importantes da nav se houver (como o ícone de carrinho) */
+        padding: 20px 0; /* Espaçamento interno */
+        border-radius: var(--border-radius);
+        border-top: 1px solid #eee; /* Uma linha para separar visualmente */
+        max-height: calc(100vh - 70px); /* Ajusta a altura máxima para não ir além da tela, subtraindo a altura da nav */
+        overflow-y: auto; /* Adiciona scroll se o conteúdo for muito grande */
+        align-items: center; /* Centraliza os itens do menu (se forem de largura menor) */
     }
 
     .customer-signup, .cart-icon, .nav-links, .nav-links.auth-links {
@@ -960,7 +974,6 @@ h4 {
         display: none;
     }
 }
-
 /* Responsividade para formulários (aplica-se a auth-container também) */
 @media (max-width: 600px) {
     .form-card {
