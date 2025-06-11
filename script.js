@@ -7,7 +7,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 // Inicialização do Supabase: Mantenha esta linha como está.
 // O erro anterior estava na linha 6 do seu print, onde 'supabase' estava no lado direito
 // da atribuição. 'Supabase' (com 'S' maiúsculo) é o objeto global da biblioteca.
-const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 
 document.addEventListener('DOMContentLoaded', function() {
